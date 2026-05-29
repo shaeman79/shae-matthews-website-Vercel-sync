@@ -22057,7 +22057,7 @@ window.addEventListener('load', function() {
   function close(){overlay.classList.remove('is-open');document.documentElement.style.overflow='';errorEl.classList.remove('is-visible');}
   function showError(m){errorEl.textContent=m;errorEl.classList.add('is-visible');}
   function wire(){
-    var links=document.querySelectorAll('a[href*="zohobookings.eu/#/customer/shaethomasmatthews"]');
+    var links=document.querySelectorAll('a[href*="zohobookings.eu/#/customer/shaethomasmatthews"], a[href*="/shae-matthews/phoenix-rising-with-shae-matthews"]');
     links.forEach(function(a){if(a.dataset.phoenixWired)return;a.dataset.phoenixWired='1';a.addEventListener('click',function(e){e.preventDefault();open();});});
   }
   wire();
