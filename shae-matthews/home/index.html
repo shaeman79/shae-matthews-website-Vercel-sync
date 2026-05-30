@@ -421,7 +421,7 @@ input:checked + .slider:before {
 ::highlight(article-highlight-d513bc6ce73947cbf8cac55fb6861b43) {
   background-color: rgba(171, 108, 254, 0.25);
 }
-</style><script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script><style id="phoenix-popup-styles">
+</style><script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script><style id="kjb-admin-bar-killer">html{padding-block-start:0!important}#admin_bar_iframe{display:none!important}</style><style id="prod-hero-tweaks">#section-1732041258078 h1.kajabi-gradient-text{font-size:56px!important;line-height:1.15!important}#section-1733079235511 h2.kajabi-gradient-text{font-size:32px!important;line-height:1.2!important}#section-1732041258078 h3,#section-1733079235511 h3{font-size:18px!important;line-height:1.45!important}#section-1732041258078 h2:not(.kajabi-gradient-text),#section-1733079235511 h2:not(.kajabi-gradient-text){font-size:16px!important;line-height:1.45!important}#section-1732041258078 .btn,#section-1733079235511 .btn{padding:14px 30px!important;font-size:16px!important;letter-spacing:.5px}@media (max-width:768px){#section-1733079235511 h2.kajabi-gradient-text{font-size:28px!important}#section-1732041258078 h3,#section-1733079235511 h3{font-size:16px!important}#section-1732041258078 .btn,#section-1733079235511 .btn{padding:12px 24px!important;font-size:15px!important}}</style><style id="phoenix-popup-styles">
 .phoenix-popup-overlay{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:20px;font-family:Poppins,Helvetica,Arial,sans-serif}
 .phoenix-popup-overlay.is-open{display:flex}
 .phoenix-popup{background:#fff;max-width:1100px;width:100%;max-height:95vh;border-radius:14px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr);position:relative;box-shadow:0 28px 70px rgba(0,0,0,.55)}
@@ -446,7 +446,7 @@ input:checked + .slider:before {
 .phoenix-popup__error{color:#c92020;font-size:13px;text-align:center;margin-top:6px;display:none}
 .phoenix-popup__error.is-visible{display:block}
 @media (max-width:768px){.phoenix-popup{grid-template-columns:1fr;max-height:95vh;overflow-y:auto}.phoenix-popup__image{max-height:180px;object-fit:cover}.phoenix-popup__content{padding:22px}.phoenix-popup__content h2{font-size:19px}}
-</style><style id="kjb-admin-bar-killer">html{padding-block-start:0!important}#admin_bar_iframe{display:none!important}</style><style id="prod-hero-tweaks">#section-1732041258078 h1.kajabi-gradient-text{font-size:56px!important;line-height:1.15!important}#section-1733079235511 h2.kajabi-gradient-text{font-size:32px!important;line-height:1.2!important}#section-1732041258078 h3,#section-1733079235511 h3{font-size:18px!important;line-height:1.45!important}#section-1732041258078 h2:not(.kajabi-gradient-text),#section-1733079235511 h2:not(.kajabi-gradient-text){font-size:16px!important;line-height:1.45!important}#section-1732041258078 .btn,#section-1733079235511 .btn{padding:14px 30px!important;font-size:16px!important;letter-spacing:.5px}@media (max-width:768px){#section-1733079235511 h2.kajabi-gradient-text{font-size:28px!important}#section-1732041258078 h3,#section-1733079235511 h3{font-size:16px!important}#section-1732041258078 .btn,#section-1733079235511 .btn{padding:12px 24px!important;font-size:15px!important}}</style></head>
+</style></head>
 
   
 
@@ -21646,7 +21646,7 @@ window.addEventListener('load', function() {
   function close(){overlay.classList.remove('is-open');document.documentElement.style.overflow='';errorEl.classList.remove('is-visible');}
   function showError(m){errorEl.textContent=m;errorEl.classList.add('is-visible');}
   function wire(){
-    var links=document.querySelectorAll('a[href*="zohobookings.eu/#/customer/shaethomasmatthews"], a[href*="/shae-matthews/phoenix-rising-with-shae-matthews"]');
+    var links=document.querySelectorAll('a[href*="zohobookings.eu/#/customer/shaethomasmatthews"]:not(.link-list__link), a[href*="/shae-matthews/phoenix-rising-with-shae-matthews"]:not(.link-list__link)');
     links.forEach(function(a){if(a.dataset.phoenixWired)return;a.dataset.phoenixWired='1';a.addEventListener('click',function(e){e.preventDefault();open();});});
   }
   wire();
