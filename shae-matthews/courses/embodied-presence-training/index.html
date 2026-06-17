@@ -680,7 +680,7 @@ max-width: 85%;
   /* Default Header Styles */
   .header {
     
-      background-color: #000000;
+      background-color: rgba(0, 0, 0, 0);
     
     font-size: 18px;
   }
@@ -691,21 +691,36 @@ max-width: 85%;
   .header .user__login a,
   .header .dropdown__item a,
   .header .dropdown__trigger:hover {
-    color: #ffffff;
+    color: #18222c;
   }
   .header .dropdown__trigger {
-    color: #ffffff !important;
+    color: #18222c !important;
   }
   /* Mobile Header Styles */
   @media (max-width: 767px) {
     .header {
       
+        background-color: #ffffff;
+      
       font-size: 16px;
     }
     
+      .header a,
+      .header a.link-list__link,
+      .header a.social-icons__icon,
+      .header .dropdown__item a,
+      .header .user__login a,
+      .header a.link-list__link:hover,
+      .header .dropdown__trigger:hover {
+        color: #18222c;
+      }
+      .header .dropdown__trigger {
+        color: #18222c !important;
+      }
+    
     .header .hamburger__slices .hamburger__slice {
       
-        background-color: #ffffff;
+        background-color: #18222c;
       
     }
     
@@ -729,6 +744,8 @@ max-width: 85%;
   
     
   
+    
+  
   
   
   
@@ -743,11 +760,13 @@ max-width: 85%;
     
       
     
+      
+    
   </div>
   
     <div class="header__wrap">
       <div class="header__content header__content--desktop background-dark">
-        <div class="container header__container media justify-content-center"><div id="block-1555988494486" class="header__block header__block--logo header__block--show header__switch-content " kjb-settings-id="sections_header_blocks_1555988494486_settings_stretch">
+        <div class="container header__container media justify-content-center"><div id="block-1555988494486" class="header__block header__block--logo header__block--show header__switch-content stretch" kjb-settings-id="sections_header_blocks_1555988494486_settings_stretch">
   
 
 <style>
@@ -763,32 +782,68 @@ max-width: 85%;
   }
 </style>
 
-<a class="logo" href="/">
+<a class="logo" href="/shae-matthews/home" target="_self">
   
     
-      <img loading="lazy" class="logo__image" alt="Header Logo" kjb-settings-id="sections_header_blocks_1555988494486_settings_logo" src="/images/2d2676-6e2-036-b42f-c618534126_Untitled_design_16_.webp">
+      <img loading="lazy" class="logo__image" alt="Header Logo" kjb-settings-id="sections_header_blocks_1555988494486_settings_logo" src="/images/7157cee-741-5d40-a7ef-548587c1b26d_Untitled_design_1_.webp">
     
   
 </a>
-</div><div id="block-1704907716946" class="header__block header__switch-content header__block--menu stretch" kjb-settings-id="sections_header_blocks_1704907716946_settings_stretch">
-  <div class="link-list justify-content-right" kjb-settings-id="sections_header_blocks_1704907716946_settings_menu">
+
+</div><div id="block-1716983777595" class="header__block header__switch-content header__block--cta stretch" kjb-settings-id="sections_header_blocks_1716983777595_settings_stretch">
+  
+
+
+
+
+
+
+<style>
+  #block-1716983777595 .btn,
+  [data-slick-id="1716983777595"] .block .btn {
+    color: #ffffff;
+    border-color: #93252a;
+    border-radius: 10px;
+    background-color: #93252a;
+  }
+  #block-1716983777595 .btn--outline,
+  [data-slick-id="1716983777595"] .block .btn--outline {
+    background: transparent;
+    color: #93252a;
+  }
+</style>
+
+<a class="btn btn--solid btn--small btn--auto" href="/shae-matthews/phoenix-rising-with-shae-matthews" target="_blank" rel="noopener" kjb-settings-id="sections_header_blocks_1716983777595_settings_btn_background_color" role="button">
+  Book Now
+</a>
+
+
+</div><div id="block-1716564438473" class="header__block header__switch-content header__block--menu " kjb-settings-id="sections_header_blocks_1716564438473_settings_stretch">
+  <div class="link-list justify-content-right" kjb-settings-id="sections_header_blocks_1716564438473_settings_menu">
   
     <a class="link-list__link" href="/shae-matthews/home">Home</a>
   
-    <a class="link-list__link" href="/shae-matthews/courses">Shop</a>
+    <a class="link-list__link" href="/shae-matthews/about">About</a>
+  
+    <span class="kjb-courses-drop"><a class="link-list__link kjb-courses-trigger" href="/shae-matthews/courses/magnetic-man">Online Training &#9662;</a><ul class="kjb-courses-menu"><li><a href="/shae-matthews/courses/magnetic-man">Magnetic Man</a></li><li><a href="/shae-matthews/mindshift">Mindshift</a></li></ul></span>
+  
+    <a class="link-list__link" href="/shae-matthews/live-training">Live Training</a><a class="link-list__link" href="/shae-matthews/phoenix-rising-with-shae-matthews">Strategy Call</a>
+  
+    
   
 </div>
+
 </div><div id="block-1704806458971" class="header__block header__switch-content header__block--user " kjb-settings-id="sections_header_blocks_1704806458971_settings_stretch">
   <style>
   /* Dropdown menu colors for desktop */
   @media (min-width: 768px) {
     #block-1704806458971 .dropdown__menu {
       background: #FFFFFF;
-      color: #595959;
+      color: #ffffff;
     }
     #block-1704806458971 .dropdown__item a,
     #block-1704806458971 {
-      color: #595959;
+      color: #ffffff;
     }
   }
   /* Mobile menu text alignment */
@@ -814,6 +869,7 @@ max-width: 85%;
     </div>
   
 </div>
+
 </div><div class="header__switch-content header__spacer"></div>
           
             
@@ -826,16 +882,31 @@ max-width: 85%;
 </style>
 
 
+
               
           
             
                 <style>
 @media (min-width: 768px) {
-  #block-1704907716946 {
+  #block-1716983777595 {
     text-align: right;
   }
 } 
 </style>
+
+
+
+              
+          
+            
+                <style>
+@media (min-width: 768px) {
+  #block-1716564438473 {
+    text-align: right;
+  }
+} 
+</style>
+
 
 
               
@@ -850,6 +921,7 @@ max-width: 85%;
 </style>
 
 
+
               
           
           
@@ -861,6 +933,7 @@ max-width: 85%;
                 <div class="hamburger__slice hamburger--slice-4"></div>
               </div>
             </div>
+          
           
         </div>
       </div>
