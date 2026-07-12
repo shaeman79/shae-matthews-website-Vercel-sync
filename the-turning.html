@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Turning — A Belief Change Ritual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE TURNING — an observatory for the inner sky
+   Palette, type and the signature orb are derived from the
+   subject: belief, memory, breath, light entering the body.
+   ============================================================ */
+
+@property --accent   { syntax:'<color>'; inherits:true; initial-value:#C9C2E8; }
+@property --accent-2 { syntax:'<color>'; inherits:true; initial-value:#8f86c9; }
+
+:root{
+  --void:#080a16;
+  --void-2:#0e1122;
+  --plum:#1a1330;
+  --ember:#3a1f24;
+  --ink:#F2EEE6;
+  --ink-dim:#9a95ab;
+  --ink-faint:#615c74;
+  --hair:rgba(255,255,255,.09);
+  --hair-strong:rgba(255,255,255,.16);
+  --glass:rgba(255,255,255,.035);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;
+  --body:'Inter',ui-sans-serif,system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --accent:#C9C2E8;
+  --accent-2:#8f86c9;
+  transition:--accent 1200ms var(--ease),--accent-2 1200ms var(--ease);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--body);
+  font-weight:300;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* ---------- the sky ---------- */
+.sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.sky-base{position:absolute;inset:0;
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--plum) 0%, transparent 55%),
+    radial-gradient(140% 90% at 50% 115%, var(--ember) 0%, transparent 50%),
+    linear-gradient(180deg,#0a0c1a 0%, #080a16 45%, #0b0910 100%);
+}
+.aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;mix-blend-mode:screen;
+  transition:background 1600ms var(--ease)}
+.a1{width:60vw;height:60vw;top:-15vw;left:-10vw;background:radial-gradient(circle,var(--accent),transparent 65%);opacity:.22;animation:drift1 34s ease-in-out infinite}
+.a2{width:50vw;height:50vw;bottom:-18vw;right:-12vw;background:radial-gradient(circle,var(--accent-2),transparent 65%);opacity:.18;animation:drift2 42s ease-in-out infinite}
+.a3{width:34vw;height:34vw;top:35%;left:55%;background:radial-gradient(circle,#c98a63,transparent 68%);opacity:.10;animation:drift3 50s ease-in-out infinite}
+@keyframes drift1{50%{transform:translate(8vw,6vh) scale(1.1)}}
+@keyframes drift2{50%{transform:translate(-7vw,-5vh) scale(1.12)}}
+@keyframes drift3{50%{transform:translate(-6vw,4vh) scale(.92)}}
+.grain{position:absolute;inset:-50%;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(6) infinite}
+@keyframes grain{to{transform:translate(6%,-4%)}}
+
+/* ---------- structure ---------- */
+.app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+.rail{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;
+  justify-content:space-between;padding:22px clamp(18px,4vw,44px);pointer-events:none}
+.mark{font-family:var(--mono);font-weight:500;font-size:12px;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--ink-dim)}
+.mark b{color:var(--accent);font-weight:500}
+.nodes{display:flex;gap:10px;align-items:center;pointer-events:auto}
+.node{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.14);
+  transition:all .6s var(--ease);position:relative;cursor:default}
+.node.done{background:var(--accent-2)}
+.node.active{background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent),0 0 16px var(--accent);transform:scale(1.15)}
+
+.stage{flex:1;display:flex;align-items:center;justify-content:center;
+  padding:88px clamp(20px,5vw,40px) 96px;width:100%}
+.screen{width:100%;max-width:660px;display:none;animation:enter .9s var(--ease) both}
+.screen.on{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.reveal>*{opacity:0;transform:translateY(10px);animation:rise .8s var(--ease) forwards}
+.reveal>*:nth-child(1){animation-delay:.05s}
+.reveal>*:nth-child(2){animation-delay:.18s}
+.reveal>*:nth-child(3){animation-delay:.31s}
+.reveal>*:nth-child(4){animation-delay:.44s}
+.reveal>*:nth-child(5){animation-delay:.57s}
+.reveal>*:nth-child(6){animation-delay:.70s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ---------- type ---------- */
+.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.4em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:26px;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+.phase-no{color:var(--ink-faint)}
+
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,7vw,4.4rem);
+  line-height:1.02;letter-spacing:-.01em;margin-bottom:20px}
+h1 em{font-style:italic;color:var(--accent)}
+.q{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,5vw,3.1rem);
+  line-height:1.12;letter-spacing:-.005em;margin-bottom:26px}
+.q em{font-style:italic;color:var(--accent)}
+.lede{font-size:1.02rem;color:var(--ink-dim);max-width:46ch;margin-bottom:34px;font-weight:300}
+.note{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--ink-faint);margin-top:14px}
+.echo{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--ink);
+  padding:16px 22px;border-left:2px solid var(--accent);background:linear-gradient(90deg,color-mix(in srgb,var(--accent) 8%,transparent),transparent);
+  border-radius:0 10px 10px 0;margin-bottom:30px;line-height:1.4}
+
+/* ---------- inputs ---------- */
+.field{margin-bottom:22px}
+.field label{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  color:var(--ink-dim);margin-bottom:10px;text-transform:none}
+textarea,input[type=text]{width:100%;background:var(--glass);border:1px solid var(--hair);
+  border-radius:14px;color:var(--ink);font-family:var(--body);font-size:1.05rem;font-weight:300;
+  padding:16px 18px;resize:vertical;transition:border-color .4s,box-shadow .4s,background .4s;line-height:1.5}
+textarea{min-height:96px}
+textarea::placeholder,input::placeholder{color:var(--ink-faint)}
+textarea:focus,input:focus{outline:none;border-color:color-mix(in srgb,var(--accent) 55%,transparent);
+  background:rgba(255,255,255,.05);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent),0 0 30px -8px var(--accent)}
+
+/* slider */
+.gauge{margin:8px 0 4px}
+.gauge-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.gauge-val{font-family:var(--serif);font-size:3.4rem;line-height:1;color:var(--accent);
+  text-shadow:0 0 30px color-mix(in srgb,var(--accent) 45%,transparent)}
+.gauge-max{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.1em}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--accent) var(--pct,50%),rgba(255,255,255,.12) var(--pct,50%));outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+  background:var(--ink);cursor:pointer;box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent),0 0 18px var(--accent);transition:transform .2s}
+input[type=range]::-webkit-slider-thumb:active{transform:scale(1.2)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border:none;border-radius:50%;background:var(--ink);
+  cursor:pointer;box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent),0 0 18px var(--accent)}
+.scale-lab{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.08em;color:var(--ink-faint);margin-top:14px;text-transform:uppercase}
+
+/* choice buttons (yes/no) */
+.choices{display:flex;gap:14px;margin-bottom:8px;flex-wrap:wrap}
+.choice{flex:1;min-width:130px;background:var(--glass);border:1px solid var(--hair);border-radius:14px;
+  padding:20px;font-family:var(--serif);font-size:1.5rem;color:var(--ink);cursor:pointer;
+  transition:all .35s var(--ease);text-align:center}
+.choice:hover{border-color:color-mix(in srgb,var(--accent) 55%,transparent);background:rgba(255,255,255,.05);transform:translateY(-2px)}
+.choice.sel{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);
+  box-shadow:0 0 30px -10px var(--accent)}
+.choice span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);margin-top:6px;text-transform:uppercase}
+
+/* buttons */
+.actions{display:flex;gap:14px;align-items:center;margin-top:34px;flex-wrap:wrap}
+.btn{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  padding:15px 30px;border-radius:40px;border:1px solid var(--accent);cursor:pointer;transition:all .4s var(--ease);
+  background:transparent;color:var(--ink);display:inline-flex;align-items:center;gap:10px}
+.btn:hover{background:var(--accent);color:#0b0910;box-shadow:0 8px 40px -10px var(--accent)}
+.btn.ghost{border-color:var(--hair-strong);color:var(--ink-dim)}
+.btn.ghost:hover{background:rgba(255,255,255,.06);color:var(--ink);box-shadow:none;border-color:var(--hair-strong)}
+.btn.solid{background:var(--accent);color:#0b0910;border-color:var(--accent)}
+.btn.solid:hover{filter:brightness(1.08);box-shadow:0 10px 46px -10px var(--accent)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.back{background:none;border:none;color:var(--ink-faint);font-family:var(--mono);font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:color .3s;padding:15px 6px}
+.back:hover{color:var(--ink-dim)}
+
+/* ---------- the orb (signature) ---------- */
+.orb-wrap{display:flex;justify-content:center;align-items:center;margin:0 auto 40px;position:relative;
+  height:180px;width:180px}
+.orb{width:130px;height:130px;border-radius:50%;position:relative;
+  background:
+    radial-gradient(circle at 34% 30%, #ffffff 0%, color-mix(in srgb,var(--accent) 88%,white) 14%, var(--accent) 40%, var(--accent-2) 74%, color-mix(in srgb,var(--accent-2) 60%,var(--void)) 100%);
+  box-shadow:
+    0 0 60px -6px var(--accent),
+    0 0 120px -18px var(--accent-2),
+    inset -8px -10px 30px color-mix(in srgb,var(--accent-2) 70%,black),
+    inset 8px 10px 24px color-mix(in srgb,var(--accent) 60%,white);
+  animation:breathe 7s ease-in-out infinite;
+  transition:background 1400ms var(--ease),box-shadow 1400ms var(--ease)}
+.orb::after{content:"";position:absolute;inset:-30px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 30%,transparent),transparent 60%);
+  animation:halo 7s ease-in-out infinite}
+.orb-ring{position:absolute;inset:8px;border-radius:50%;border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
+  animation:ringpulse 7s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.94)}50%{transform:scale(1.06)}}
+@keyframes halo{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:.75;transform:scale(1.08)}}
+@keyframes ringpulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.9);opacity:0}}
+.orb.sm{width:74px;height:74px}
+.orb.sm~.orb-ring{inset:calc(50% - 37px)}
+
+/* breathing pacer */
+.pacer{display:flex;flex-direction:column;align-items:center;gap:16px;margin:6px 0 30px}
+.pacer-ring{width:120px;height:120px;border-radius:50%;border:1px solid var(--hair);position:relative;display:grid;place-items:center}
+.pacer-core{width:36px;height:36px;border-radius:50%;background:var(--accent);opacity:.85;
+  box-shadow:0 0 30px var(--accent);animation:pace 11s ease-in-out infinite}
+.pacer-txt{font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);height:16px}
+@keyframes pace{0%{transform:scale(.55)}36%{transform:scale(1.55)}55%{transform:scale(1.55)}100%{transform:scale(.55)}}
+
+/* allowing steps */
+.allow{border:1px solid var(--hair);border-radius:16px;padding:22px 24px;margin-bottom:14px;
+  opacity:.32;transition:all .6s var(--ease);cursor:pointer;background:var(--glass)}
+.allow.live{opacity:1;border-color:color-mix(in srgb,var(--accent) 50%,transparent);
+  box-shadow:0 0 40px -14px var(--accent);background:rgba(255,255,255,.04)}
+.allow.past{opacity:.5}
+.allow-t{font-family:var(--serif);font-size:1.4rem;line-height:1.3;margin-bottom:6px}
+.allow.past .allow-t::before{content:"✓  ";color:var(--accent);font-family:var(--mono);font-size:.9rem}
+.allow-s{font-size:.92rem;color:var(--ink-dim)}
+.allow-cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:12px;display:none}
+.allow.live .allow-cta{display:block}
+
+/* turnarounds */
+.ta{margin-bottom:18px;border:1px solid var(--hair);border-radius:16px;padding:20px;background:var(--glass);
+  transition:border-color .4s}
+.ta:focus-within{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.ta-tag{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.ta-hint{font-size:.86rem;color:var(--ink-faint);margin-bottom:12px}
+.ta textarea{min-height:64px;margin-bottom:0}
+.ta-seed{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px;cursor:pointer;letter-spacing:.03em}
+.ta-seed:hover{color:var(--ink-dim)}
+
+/* EMDR */
+.emdr-track{position:relative;height:150px;margin:20px 0 8px;border-radius:18px;overflow:hidden;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.03),transparent 70%);border:1px solid var(--hair)}
+.emdr-dot{position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 35% 32%,#fff,var(--accent) 45%,var(--accent-2));
+  box-shadow:0 0 50px 6px var(--accent),0 0 90px 12px var(--accent-2)}
+.emdr-meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;
+  letter-spacing:.06em;color:var(--ink-dim);margin-bottom:6px}
+.emdr-meta b{color:var(--accent);font-weight:500}
+.opts{display:flex;gap:22px;flex-wrap:wrap;margin:20px 0;font-family:var(--mono);font-size:12.5px;color:var(--ink-dim)}
+.opt{display:flex;align-items:center;gap:9px;cursor:pointer;letter-spacing:.04em}
+.opt input{width:16px;height:16px;accent-color:var(--accent);cursor:pointer}
+.speedrow{display:flex;align-items:center;gap:16px;margin:16px 0}
+.speedrow .mono{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+
+/* ritual */
+.rit-scene{position:relative;height:420px;margin:10px auto 20px;max-width:340px}
+.rit-body{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150px;height:360px;
+  opacity:.42}
+.rit-body svg{width:100%;height:100%}
+.plexus,.heart{position:absolute;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;
+  background:var(--accent);opacity:0;box-shadow:0 0 20px var(--accent)}
+.plexus{top:52%}.heart{top:38%}
+.rit-orb{position:absolute;left:50%;top:8%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%,#fff,color-mix(in srgb,var(--accent) 88%,white) 16%,var(--accent) 46%,var(--accent-2) 82%);
+  box-shadow:0 0 50px 8px var(--accent),0 0 100px 14px var(--accent-2);
+  transition:top 3.4s var(--ease),width 2.6s var(--ease),height 2.6s var(--ease),opacity 1.4s ease}
+.rit-line{text-align:center;font-family:var(--serif);font-style:italic;font-size:1.35rem;min-height:2em;
+  color:var(--ink);transition:opacity .9s;margin-bottom:8px;line-height:1.4}
+
+/* report */
+.report{border:1px solid var(--hair);border-radius:22px;padding:clamp(24px,4vw,40px);
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015))}
+.rep-crest{display:flex;justify-content:center;margin-bottom:8px}
+.rep-crest .orb-wrap{height:96px;width:96px;margin-bottom:20px}
+.rep-title{text-align:center;font-family:var(--serif);font-size:2.2rem;font-weight:300}
+.rep-sub{text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:34px}
+.rep-shift{display:flex;align-items:center;justify-content:center;gap:26px;margin:8px 0 36px}
+.shift-n{font-family:var(--serif);font-size:3.2rem;line-height:1;color:var(--ink-dim)}
+.shift-n.after{color:var(--accent);text-shadow:0 0 30px color-mix(in srgb,var(--accent) 40%,transparent)}
+.shift-lab{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);text-align:center;margin-top:8px}
+.shift-arrow{color:var(--accent);font-size:1.6rem}
+.rep-block{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--hair)}
+.rep-block:last-of-type{border-bottom:none}
+.rep-k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.rep-v{font-family:var(--serif);font-size:1.3rem;line-height:1.4;color:var(--ink)}
+.rep-v.body{font-family:var(--body);font-size:1rem;color:var(--ink-dim);line-height:1.6}
+.rep-vow{font-family:var(--serif);font-style:italic;font-size:1.7rem;line-height:1.3;color:var(--accent);
+  text-align:center;padding:8px 0}
+.ta-list{list-style:none}
+.ta-list li{font-family:var(--serif);font-size:1.12rem;color:var(--ink);padding:6px 0 6px 18px;position:relative;line-height:1.35}
+.ta-list li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.ta-list li.chosen{color:var(--accent)}
+.ta-list li.chosen::after{content:" ★";font-size:.7em;color:var(--accent)}
+
+/* history */
+.hist{margin-top:40px;border-top:1px solid var(--hair);padding-top:28px}
+.hist-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px}
+.hist-head h3{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dim);font-weight:500}
+.spark{margin-bottom:20px}
+.hist-item{display:flex;align-items:center;gap:16px;padding:14px 16px;border:1px solid var(--hair);
+  border-radius:12px;margin-bottom:10px;transition:border-color .3s;background:var(--glass)}
+.hist-item:hover{border-color:var(--hair-strong)}
+.hist-main{flex:1;min-width:0}
+.hist-belief{font-family:var(--serif);font-size:1.05rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-date{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-faint);margin-top:3px;text-transform:uppercase}
+.hist-delta{font-family:var(--mono);font-size:13px;font-weight:500;white-space:nowrap}
+.hist-delta.down{color:#7fd6b0}.hist-delta.up{color:#e39a9a}.hist-delta.flat{color:var(--ink-faint)}
+.hist-x{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:16px;padding:4px 8px;line-height:1;transition:color .3s}
+.hist-x:hover{color:#e39a9a}
+.hist-empty{font-family:var(--mono);font-size:12px;color:var(--ink-faint);letter-spacing:.03em}
+
+/* footer */
+.foot{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;
+  align-items:center;padding:16px clamp(18px,4vw,44px);pointer-events:none}
+.foot .btn,.foot .fbtn{pointer-events:auto}
+.fbtn{background:none;border:none;color:var(--ink-faint);font-family:var(--mono);font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:color .3s;display:flex;align-items:center;gap:8px}
+.fbtn:hover{color:var(--ink-dim)}
+.toast{position:fixed;bottom:66px;left:50%;transform:translateX(-50%) translateY(20px);z-index:40;
+  background:rgba(20,17,34,.94);border:1px solid var(--hair-strong);border-radius:40px;padding:12px 26px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--ink);opacity:0;pointer-events:none;
+  transition:all .5s var(--ease);backdrop-filter:blur(10px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:560px){
+  .rail{padding:16px}.mark{font-size:10px;letter-spacing:.3em}
+  .orb-wrap{height:150px;width:150px}.orb{width:104px;height:104px}
+  .rit-scene{height:360px}.stage{padding-top:74px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+  .aurora,.grain{animation:none}
+  .orb{animation:none}.pacer-core{animation:none;transform:scale(1.1)}
+}
+
+@media print{
+  body{background:#fff;color:#111}
+  .sky,.rail,.foot,.actions,.hist,.toast,.orb-wrap{display:none!important}
+  .report{border:none;background:none}
+  .rep-title,.rep-v,.rep-vow,.ta-list li{color:#111}
+  .rep-k,.rep-sub{color:#666}
+}
+</style>
+</head>
+<body>
+
+<div class="sky" aria-hidden="true">
+  <div class="sky-base"></div>
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="grain"></div>
+</div>
+
+<div class="app">
+  <div class="rail">
+    <div class="mark">THE&nbsp;<b>TURNING</b></div>
+    <div class="nodes" id="nodes"></div>
+  </div>
+
+  <main class="stage" id="stage">
+
+    <!-- ============ PHASE 0 · THRESHOLD ============ -->
+    <section class="screen on" data-screen="welcome" data-phase="0">
+      <div class="reveal">
+        <div class="orb-wrap"><div class="orb"></div><div class="orb-ring"></div></div>
+        <h1>Every belief you hold<br>was once a <em>decision</em>.</h1>
+        <p class="lede">Some of them have outlived their usefulness. This is a quiet room for meeting one of them — questioning it, softening it, and choosing again. Give it fifteen unhurried minutes.</p>
+        <div class="actions">
+          <button class="btn solid" data-next>Begin the turning</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="belief" data-phase="0">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase I</span> · Threshold</div>
+        <div class="q">What belief is ready<br>to be <em>turned?</em></div>
+        <p class="lede">One sentence. Say it the way it lives in your body — the raw version, not the polished one. “I’m not enough.” “They don’t respect me.” “The world isn’t safe.”</p>
+        <div class="field">
+          <textarea id="belief" placeholder="Write the belief exactly as it feels…" autofocus></textarea>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="belief">Hold it here</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="baseline" data-phase="0">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase I</span> · Threshold</div>
+        <div class="q">When you hold it now,<br>how <em>heavy</em> is it?</div>
+        <div class="echo" data-echo></div>
+        <div class="gauge">
+          <div class="gauge-head">
+            <div class="gauge-val" id="baseVal">5</div>
+            <div class="gauge-max">/ 10</div>
+          </div>
+          <input type="range" min="0" max="10" value="5" id="baseRange" data-gauge="baseVal">
+          <div class="scale-lab"><span>Weightless</span><span>Unbearable</span></div>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Begin inquiry</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 1 · INQUIRY ============ -->
+    <section class="screen" data-screen="k1" data-phase="1">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase II</span> · Inquiry</div>
+        <div class="echo" data-echo></div>
+        <div class="q">Is it <em>true?</em></div>
+        <p class="lede">Not whether it’s reasonable, or common. Just — is it true? Meet the first honest answer that rises.</p>
+        <div class="choices" data-choice="k1_true">
+          <button class="choice" data-val="Yes">Yes<span>it feels true</span></button>
+          <button class="choice" data-val="No">No<span>not entirely</span></button>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require-choice="k1_true">Go deeper</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="k2" data-phase="1">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase II</span> · Inquiry</div>
+        <div class="q" data-k2q>Can you <em>absolutely</em> know<br>that it’s true?</div>
+        <p class="lede">Beyond all doubt. With the certainty you’d stake everything on. Can you <em>know</em> it — completely?</p>
+        <div class="choices" data-choice="k2_true">
+          <button class="choice" data-val="Yes">Yes<span>beyond doubt</span></button>
+          <button class="choice" data-val="No">No<span>I can’t know that</span></button>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require-choice="k2_true">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="k3" data-phase="1">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase II</span> · Inquiry</div>
+        <div class="q">What happens<br>when you <em>believe</em> it?</div>
+        <p class="lede">How do you react? What do you do, feel, avoid? How do you treat yourself and others while this thought is running? Let it be specific.</p>
+        <div class="field"><textarea id="k3_reaction" placeholder="When I believe this, I…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="k3_reaction">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="k4" data-phase="1">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase II</span> · Inquiry</div>
+        <div class="q">Who would you be<br><em>without</em> the thought?</div>
+        <p class="lede">Same life, same room, same people — but the belief simply never arrives. Who is standing here? What becomes possible?</p>
+        <div class="field"><textarea id="k4_without" placeholder="Without this belief, I would be…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="k4_without">Find the turnarounds</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 2 · TURNAROUNDS ============ -->
+    <section class="screen" data-screen="turnarounds" data-phase="2">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase III</span> · Turnarounds</div>
+        <div class="q">Turn it <em>inside out.</em></div>
+        <p class="lede">Every belief has opposites hiding inside it. Here are three drafts — to the opposite, to yourself, to the other. They’re deliberately rough. Rewrite each in your own words, then find the one that feels as true, or truer.</p>
+        <div id="taBox"></div>
+        <div class="field" style="margin-top:24px">
+          <label>Which turnaround feels most alive — most true, or truer than the original?</label>
+          <textarea id="ta_chosen" placeholder="The one that lands…"></textarea>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="ta_chosen">Into allowing</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 3 · ALLOWING ============ -->
+    <section class="screen" data-screen="allowing" data-phase="3">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase IV</span> · Allowing</div>
+        <div class="q">Before you change it —<br>let it be <em>here.</em></div>
+        <p class="lede">Nothing to fix in this room. Move through slowly. Breathe with the light. Tap each one only when it’s genuinely allowed.</p>
+        <div class="pacer">
+          <div class="pacer-ring"><div class="pacer-core"></div></div>
+          <div class="pacer-txt" id="pacerTxt">breathe</div>
+        </div>
+        <div id="allowBox"></div>
+        <div class="actions" id="allowActions" style="opacity:.35;pointer-events:none">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Begin bilateral</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 4 · EMDR ============ -->
+    <section class="screen" data-screen="emdr-setup" data-phase="4">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase V</span> · Bilateral</div>
+        <div class="q">Let both sides<br>of you <em>process.</em></div>
+        <p class="lede">Follow the light with your eyes without moving your head — or tap your knees, left then right, in time with it. Hold the belief and the feeling loosely in the background. Slow breath. Let whatever surfaces, surface.</p>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" id="emdrSound"> Panned tones</label>
+          <label class="opt"><input type="checkbox" id="emdrTap" checked> Tapping guide</label>
+        </div>
+        <div class="speedrow">
+          <span class="mono">Slow</span>
+          <input type="range" min="0" max="10" value="5" id="emdrSpeed">
+          <span class="mono">Fast</span>
+        </div>
+        <p class="note">One set is roughly 24 passes. Do a set, pause, notice — repeat as many as you like.</p>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Start the light</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="emdr-run" data-phase="4">
+      <div>
+        <div class="eyebrow"><span class="phase-no">Phase V</span> · Bilateral</div>
+        <div class="emdr-meta"><span>Pass <b id="passN">0</b></span><span id="tapCue">left</span><span>Set <b id="setN">1</b></span></div>
+        <div class="emdr-track"><div class="emdr-dot" id="emdrDot"></div></div>
+        <p class="note" id="emdrStatus">Following… breathe slowly and let it move through.</p>
+        <div class="actions" id="emdrDone" style="display:none">
+          <button class="btn ghost" id="anotherSet">Another set</button>
+          <button class="btn solid" data-next>That’s enough</button>
+        </div>
+        <div class="actions" id="emdrStop">
+          <button class="btn ghost" id="stopSet">Pause set</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="emdr-after" data-phase="4">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase V</span> · Bilateral</div>
+        <div class="q">And <em>now</em> —<br>how heavy is it?</div>
+        <p class="lede">Return to the original belief. Notice its weight, honestly, after the processing. It may have shifted; it may not have. Either is information.</p>
+        <div class="gauge">
+          <div class="gauge-head">
+            <div class="gauge-val" id="afterVal">5</div>
+            <div class="gauge-max">/ 10</div>
+          </div>
+          <input type="range" min="0" max="10" value="5" id="afterRange" data-gauge="afterVal">
+          <div class="scale-lab"><span>Weightless</span><span>Unbearable</span></div>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Trace it to its root</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 5 · COHERENCE ============ -->
+    <section class="screen" data-screen="mem1" data-phase="5">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VI</span> · The Root</div>
+        <div class="q">When did you <em>first</em><br>feel this way?</div>
+        <p class="lede">Let the feeling lead you back, not your logic. Follow it to the earliest scene you can find — a moment, a room, an age. Describe what you find there.</p>
+        <div class="field"><textarea id="mem_first" placeholder="The earliest memory I can find is…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="mem_first">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="mem2" data-phase="5">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VI</span> · The Root</div>
+        <div class="q">How <em>charged</em><br>is that memory?</div>
+        <p class="lede">As you hold that early scene now, how much emotional charge is still live in it?</p>
+        <div class="gauge">
+          <div class="gauge-head">
+            <div class="gauge-val" id="memVal">5</div>
+            <div class="gauge-max">/ 10</div>
+          </div>
+          <input type="range" min="0" max="10" value="5" id="memRange" data-gauge="memVal">
+          <div class="scale-lab"><span>Neutral</span><span>Overwhelming</span></div>
+        </div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="mem3" data-phase="5">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VI</span> · The Root</div>
+        <div class="q">What did that<br>younger you <em>decide?</em></div>
+        <p class="lede">The belief was protection — a smart conclusion for a young nervous system. What was it trying to keep you safe from? What did it help you survive?</p>
+        <div class="field"><textarea id="mem_lesson" placeholder="Back then, believing this protected me by…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="mem_lesson">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="mem4" data-phase="5">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VI</span> · The Root</div>
+        <div class="q">What did that<br>moment truly <em>need?</em></div>
+        <p class="lede">Speak to the younger you. What did they need to hear, feel, or have — that no one gave them then? What would have changed everything?</p>
+        <div class="field"><textarea id="mem_needs" placeholder="What that moment needed was…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="mem_needs">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="mem5" data-phase="5">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VI</span> · The Root</div>
+        <div class="q">Now <em>rewrite</em> it.</div>
+        <p class="lede">Step back into the scene as who you are now. Add what was missing, remove what was cruel, change what needs changing. Give that younger you the experience they deserved — and let it feel real.</p>
+        <div class="field"><textarea id="mem_rewrite" placeholder="This time, it goes like this…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Install the new belief</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PHASE 6 · INSTALLATION ============ -->
+    <section class="screen" data-screen="install-belief" data-phase="6">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VII</span> · Installation</div>
+        <div class="q">This is what<br>you’re <em>choosing.</em></div>
+        <p class="lede">Drawn from your turnaround and your rewrite. Shape it until it’s undeniable — present tense, warm, and entirely yours. This is the belief you’ll carry out of this room.</p>
+        <div class="field"><textarea id="new_belief" placeholder="The belief I choose is…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next data-require="new_belief">Begin the installation</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="ritual" data-phase="6">
+      <div>
+        <div class="eyebrow"><span class="phase-no">Phase VII</span> · Installation</div>
+        <div class="rit-line" id="ritLine">Sit tall. Soften your breath. When you’re ready, begin.</div>
+        <div class="rit-scene">
+          <div class="rit-body">
+            <svg viewBox="0 0 150 360" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" stroke-width="1.4" opacity="0.9">
+              <circle cx="75" cy="42" r="26"/>
+              <path d="M75 68 C 45 78, 40 120, 42 175 C 43 215, 50 250, 55 300 M75 68 C 105 78, 110 120, 108 175 C 107 215, 100 250, 95 300"/>
+              <path d="M46 96 C 30 120, 22 165, 20 200 M104 96 C 120 120, 128 165, 130 200"/>
+            </svg>
+          </div>
+          <div class="plexus" id="plexus"></div>
+          <div class="heart" id="heart"></div>
+          <div class="rit-orb" id="ritOrb"></div>
+        </div>
+        <div class="actions" id="ritActions" style="justify-content:center">
+          <button class="btn solid" id="ritBegin">Begin</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen" data-screen="integration" data-phase="6">
+      <div class="reveal">
+        <div class="eyebrow"><span class="phase-no">Phase VII</span> · Installation</div>
+        <div class="q">Say it as<br><em>I am.</em></div>
+        <p class="lede">The belief is inside you now. Speak it once more as identity — not something you’re trying to believe, but something you simply are.</p>
+        <div class="field"><textarea id="i_am" placeholder="I am…"></textarea></div>
+        <div class="actions">
+          <button class="back" data-back>Back</button>
+          <button class="btn solid" data-next>Seal the report</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REPORT ============ -->
+    <section class="screen" data-screen="report" data-phase="7">
+      <div class="report" id="reportBody"><!-- composed --></div>
+
+      <div class="actions" style="justify-content:center;margin-top:30px">
+        <button class="btn solid" id="dlBtn">Download report</button>
+        <button class="btn" id="emailBtn">Email to myself</button>
+        <button class="btn ghost" id="copyBtn">Copy</button>
+        <button class="btn ghost" id="printBtn">Print / PDF</button>
+      </div>
+      <div class="actions" style="justify-content:center;margin-top:4px">
+        <button class="btn ghost" id="saveBtn">Save to history</button>
+        <button class="back" id="restartBtn">Turn another belief</button>
+      </div>
+
+      <div class="hist" id="histWrap">
+        <div class="hist-head">
+          <h3>Your turnings over time</h3>
+          <span class="hist-empty" id="histCount"></span>
+        </div>
+        <div class="spark" id="spark"></div>
+        <div id="histList"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="foot">
+    <button class="fbtn" id="restartFoot">↺ Restart</button>
+    <button class="fbtn" id="quietFoot">Reduce motion</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+(function(){
+
+/* ---------------- flow & phase config ---------------- */
+const FLOW = ["welcome","belief","baseline","k1","k2","k3","k4","turnarounds",
+  "allowing","emdr-setup","emdr-run","emdr-after","mem1","mem2","mem3","mem4","mem5",
+  "install-belief","ritual","integration","report"];
+
+const PHASE_ACCENT = {
+  0:["#C9C2E8","#8f86c9"], // threshold — moon violet
+  1:["#93B4E6","#5f7fc4"], // inquiry — clarity blue
+  2:["#B98CE0","#8452b8"], // turnarounds — amethyst
+  3:["#79C9B8","#3f9d8a"], // allowing — sea glass
+  4:["#E8B37C","#c47f45"], // bilateral — ember
+  5:["#E39AB0","#b8677f"], // root — rose
+  6:["#F0CE86","#c9a24f"], // installation — gold
+  7:["#F3D68E","#d4ad55"]  // report — radiant gold
+};
+const PHASE_COUNT = 7;
+
+const state = {
+  belief:"", base:5, after:5,
+  k1_true:"", k2_true:"", k3_reaction:"", k4_without:"",
+  ta_opposite:"", ta_self:"", ta_other:"", ta_chosen:"",
+  mem_first:"", mem:5, mem_lesson:"", mem_needs:"", mem_rewrite:"",
+  new_belief:"", i_am:"", date:null
+};
+
+let idx = 0;
+const stage = document.getElementById('stage');
+const screens = {};
+document.querySelectorAll('.screen').forEach(s=>screens[s.dataset.screen]=s);
+
+/* ---------------- phase rail ---------------- */
+const nodesEl = document.getElementById('nodes');
+for(let i=0;i<PHASE_COUNT;i++){
+  const n=document.createElement('div'); n.className='node'; nodesEl.appendChild(n);
+}
+const nodeEls=[...nodesEl.children];
+
+function setAccent(phase){
+  const [a,b]=PHASE_ACCENT[phase]||PHASE_ACCENT[0];
+  document.documentElement.style.setProperty('--accent',a);
+  document.documentElement.style.setProperty('--accent-2',b);
+}
+function updateRail(phase){
+  nodeEls.forEach((n,i)=>{
+    n.className='node'+(i<phase?' done':'')+(i===phase?' active':'');
+  });
+}
+
+/* ---------------- navigation ---------------- */
+function show(i){
+  const name=FLOW[i];
+  const cur=screens[name];
+  Object.values(screens).forEach(s=>s.classList.remove('on'));
+  cur.classList.add('on');
+  // retrigger stagger
+  const rev=cur.querySelector('.reveal');
+  if(rev){rev.style.animation='none'; void rev.offsetWidth; rev.style.animation='';}
+  const phase=+cur.dataset.phase;
+  setAccent(phase);
+  updateRail(Math.min(phase,PHASE_COUNT-1));
+  window.scrollTo({top:0,behavior:'smooth'});
+  idx=i;
+  if(onEnter[name]) onEnter[name]();
+}
+function next(){ save(); if(idx<FLOW.length-1) show(idx+1); }
+function back(){ if(idx>0) show(idx-1); }
+
+function save(){
+  const name=FLOW[idx];
+  // pull known fields present on this screen
+  const map={
+    belief:'belief', k3:'k3_reaction', k4:'k4_without', turnarounds:'ta_chosen',
+    mem1:'mem_first', mem3:'mem_lesson', mem4:'mem_needs', mem5:'mem_rewrite',
+    'install-belief':'new_belief', integration:'i_am'
+  };
+  if(map[name]){ const el=document.getElementById(map[name]); if(el) state[map[name].startsWith('ta')?'ta_chosen':map[name]]=el.value.trim(); }
+  if(name==='belief') state.belief=val('belief');
+  if(name==='k3') state.k3_reaction=val('k3_reaction');
+  if(name==='k4') state.k4_without=val('k4_without');
+  if(name==='mem1') state.mem_first=val('mem_first');
+  if(name==='mem3') state.mem_lesson=val('mem_lesson');
+  if(name==='mem4') state.mem_needs=val('mem_needs');
+  if(name==='mem5') state.mem_rewrite=val('mem_rewrite');
+  if(name==='install-belief') state.new_belief=val('new_belief');
+  if(name==='integration') state.i_am=val('i_am');
+  if(name==='turnarounds'){
+    state.ta_opposite=val('ta_opposite'); state.ta_self=val('ta_self');
+    state.ta_other=val('ta_other'); state.ta_chosen=val('ta_chosen');
+  }
+}
+function val(id){const e=document.getElementById(id);return e?e.value.trim():'';}
+
+/* wire next/back + requirements */
+stage.addEventListener('click',e=>{
+  const nx=e.target.closest('[data-next]');
+  const bk=e.target.closest('[data-back]');
+  if(bk){back();return;}
+  if(nx){
+    const reqId=nx.dataset.require;
+    if(reqId){const el=document.getElementById(reqId); if(el&&!el.value.trim()){pulse(el);return;}}
+    const reqCh=nx.dataset.requireChoice;
+    if(reqCh && !state[reqCh]){toast('Choose one to continue');return;}
+    next();
+  }
+});
+function pulse(el){el.focus();el.style.borderColor='#e39a9a';el.style.boxShadow='0 0 0 4px rgba(227,154,154,.18)';
+  setTimeout(()=>{el.style.borderColor='';el.style.boxShadow='';},900);}
+
+/* ---------------- choices (yes/no) ---------------- */
+stage.addEventListener('click',e=>{
+  const c=e.target.closest('.choice'); if(!c)return;
+  const grp=c.closest('[data-choice]'); const key=grp.dataset.choice;
+  grp.querySelectorAll('.choice').forEach(x=>x.classList.remove('sel'));
+  c.classList.add('sel');
+  state[key]=c.dataset.val;
+  if(key==='k1_true'){
+    const q=document.querySelector('[data-k2q]');
+    if(q) q.innerHTML = c.dataset.val==='Yes'
+      ? 'Can you <em>absolutely</em> know<br>that it’s true?'
+      : 'Then can you <em>absolutely</em> know<br>it’s true at all?';
+  }
+});
+
+/* ---------------- sliders ---------------- */
+document.querySelectorAll('input[type=range][data-gauge]').forEach(r=>{
+  const out=document.getElementById(r.dataset.gauge);
+  const upd=()=>{out.textContent=r.value; r.style.setProperty('--pct',(r.value/10*100)+'%');
+    const key=r.id==='baseRange'?'base':r.id==='afterRange'?'after':r.id==='memRange'?'mem':null;
+    if(key)state[key]=+r.value;};
+  r.addEventListener('input',upd); upd();
+});
+
+/* ---------------- echoes ---------------- */
+function fillEchoes(){
+  document.querySelectorAll('[data-echo]').forEach(el=>{
+    el.textContent = state.belief ? '“'+state.belief+'”' : '';
+  });
+}
+
+/* ---------------- turnaround generator ---------------- */
+function cap(s){return s? s.charAt(0).toUpperCase()+s.slice(1):s;}
+function wb(str,map){
+  let out=str;
+  for(const [k,v] of map){ out=out.replace(new RegExp('\\b'+k+'\\b','gi'), v); }
+  return out;
+}
+function toggleNeg(b){
+  const neg=[["can't","can"],["won't","will"],["don't","do"],["doesn't","does"],
+    ["didn't","did"],["isn't","is"],["aren't","are"],["wasn't","was"],["weren't","were"],
+    ["cannot","can"],["never","always"],[" not "," "],[" no "," a "]];
+  let has=false, out=' '+b+' ';
+  for(const [k,v] of neg){ if(new RegExp(k.trim().length<=2?('\\b'+k+'\\b'):k,'i').test(out)){out=out.replace(new RegExp(k,'i'),v);has=true;break;} }
+  if(has) return cap(out.trim().replace(/\s+/g,' '));
+  // insert negation after first auxiliary/verb
+  const aux=[" am "," is "," are "," was "," were "," can "," will "," have "," feel "," think "," need "," deserve "];
+  let s=' '+b+' ';
+  for(const a of aux){ if(s.toLowerCase().includes(a)){ s=s.replace(new RegExp(a,'i'),a+"not "); return cap(s.trim().replace(/\s+/g,' ')); } }
+  return "It isn’t true that "+b.charAt(0).toLowerCase()+b.slice(1);
+}
+function toSelf(b){
+  const m=[["everyone","I"],["everybody","I"],["people","I"],["nobody","I"],["they","I"],
+    ["he","I"],["she","I"],["them","me"],["him","me"],["her","me"],["their","my"],["his","my"],
+    ["you","I"],["your","my"],["yourself","myself"],["the world","I"],["life","I"]];
+  let out=wb(b,m);
+  out=out.replace(/\bare\b/gi,'am').replace(/\bwere\b/gi,'was').replace(/\bis\b/gi,'am');
+  return cap(out.trim());
+}
+function toOther(b){
+  const m=[["myself","themselves"],["i'm","they're"],["i am","they are"],["mine","theirs"],
+    ["my","their"],["me","them"],["i","they"]];
+  let out=wb(b,m);
+  out=out.replace(/\bam\b/gi,'are');
+  return cap(out.trim());
+}
+function buildTurnarounds(){
+  const b=state.belief||"this belief";
+  const seeds={opposite:toggleNeg(b), self:toSelf(b), other:toOther(b)};
+  const defs=[
+    ["opposite","To the opposite","The mirror image — flip its polarity. Is this at least as true?"],
+    ["self","To yourself","Turn it back on you. When you point a finger, three point home."],
+    ["other","To the other","Aim it outward instead of in. Notice what this one reveals."]
+  ];
+  const box=document.getElementById('taBox');
+  box.innerHTML='';
+  defs.forEach(([key,tag,hint])=>{
+    const seed=seeds[key];
+    const wrap=document.createElement('div'); wrap.className='ta';
+    wrap.innerHTML=`
+      <div class="ta-tag">${tag}</div>
+      <div class="ta-hint">${hint}</div>
+      <textarea id="ta_${key}" placeholder="Rewrite it in your words…">${seed}</textarea>
+      <div class="ta-seed" data-restore="ta_${key}" data-seed="${escapeAttr(seed)}">↺ restore the draft</div>`;
+    box.appendChild(wrap);
+  });
+  box.querySelectorAll('[data-restore]').forEach(s=>{
+    s.addEventListener('click',()=>{document.getElementById(s.dataset.restore).value=s.dataset.seed;});
+  });
+}
+function escapeAttr(s){return (s||'').replace(/"/g,'&quot;');}
+
+/* ---------------- allowing sequence ---------------- */
+const ALLOW=[
+  ["Allow the situation to be exactly as it is.","Nothing changes yet. You’re simply stopping the fight with what’s already here."],
+  ["Allow the part of you that wants it gone.","The resistance is welcome too. Let the wanting-to-change be here, without acting on it."],
+  ["Allow every attachment and every aversion.","What you cling to, what you push away — let both exist. Hold them gently, openly."],
+  ["Rest as the space it all appears in.","You are not the weather. You’re the sky it moves through. Rest there — vast, unbothered, whole."]
+];
+let allowStep=0;
+function buildAllow(){
+  allowStep=0;
+  const box=document.getElementById('allowBox'); box.innerHTML='';
+  ALLOW.forEach(([t,s],i)=>{
+    const d=document.createElement('div'); d.className='allow'+(i===0?' live':'');
+    d.innerHTML=`<div class="allow-t">${t}</div><div class="allow-s">${s}</div><div class="allow-cta">Tap when this is allowed →</div>`;
+    d.addEventListener('click',()=>{
+      if(!d.classList.contains('live'))return;
+      d.classList.remove('live'); d.classList.add('past');
+      allowStep++;
+      const nextEl=box.children[allowStep];
+      if(nextEl) nextEl.classList.add('live');
+      else{
+        const act=document.getElementById('allowActions');
+        act.style.opacity='1'; act.style.pointerEvents='auto';
+      }
+    });
+    box.appendChild(d);
+  });
+  const act=document.getElementById('allowActions'); act.style.opacity='.35'; act.style.pointerEvents='none';
+}
+// breathing pacer text
+let pacerTimer=null;
+function startPacer(){
+  const el=document.getElementById('pacerTxt'); if(!el)return;
+  const seq=[["breathe in",0],["hold",4000],["breathe out",6000]];
+  const cycle=()=>{ el.textContent='breathe in';
+    setTimeout(()=>el&&(el.textContent='hold'),4000);
+    setTimeout(()=>el&&(el.textContent='breathe out'),6000); };
+  cycle(); pacerTimer=setInterval(cycle,11000);
+}
+function stopPacer(){if(pacerTimer){clearInterval(pacerTimer);pacerTimer=null;}}
+
+/* ---------------- EMDR engine ---------------- */
+let emdr={raf:null,t0:0,passes:0,set:1,target:24,running:false,lastHalf:0,audio:null,pan:null,osc:null,gain:null};
+function emdrPeriod(){ // seconds per full L-R-L cycle
+  const s=+document.getElementById('emdrSpeed').value; // 0..10
+  return 2.4 - (s/10)*1.6; // 2.4s slow -> 0.8s fast
+}
+function startEmdrAudio(){
+  if(!document.getElementById('emdrSound').checked) return;
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext; if(!AC)return;
+    emdr.audio=new AC();
+    emdr.gain=emdr.audio.createGain(); emdr.gain.gain.value=0.0001;
+    emdr.pan=emdr.audio.createStereoPanner? emdr.audio.createStereoPanner():null;
+    emdr.osc=emdr.audio.createOscillator(); emdr.osc.type='sine'; emdr.osc.frequency.value=196;
+    if(emdr.pan){emdr.osc.connect(emdr.pan); emdr.pan.connect(emdr.gain);} else {emdr.osc.connect(emdr.gain);}
+    emdr.gain.connect(emdr.audio.destination); emdr.osc.start();
+  }catch(err){}
+}
+function stopEmdrAudio(){ try{ if(emdr.osc)emdr.osc.stop(); if(emdr.audio)emdr.audio.close(); }catch(err){} emdr.audio=null; emdr.osc=null; }
+function runEmdr(){
+  const dot=document.getElementById('emdrDot');
+  const track=dot.parentElement;
+  emdr.running=true; emdr.t0=performance.now(); emdr.passes=0; emdr.lastHalf=0;
+  document.getElementById('passN').textContent='0';
+  document.getElementById('setN').textContent=emdr.set;
+  document.getElementById('emdrDone').style.display='none';
+  document.getElementById('emdrStop').style.display='flex';
+  document.getElementById('emdrStatus').textContent='Following… breathe slowly and let it move through.';
+  const tapOn=document.getElementById('emdrTap').checked;
+  const cue=document.getElementById('tapCue'); cue.style.opacity=tapOn?'1':'0';
+  function frame(now){
+    if(!emdr.running)return;
+    const period=emdrPeriod();
+    const w=track.clientWidth, amp=(w/2)-40;
+    const t=(now-emdr.t0)/1000;
+    const phase=(t/period)*2*Math.PI;
+    const x=Math.sin(phase)*amp;
+    dot.style.left=`calc(50% + ${x}px)`;
+    // panning + tap cue by half-cycle
+    const half=Math.floor(phase/Math.PI);
+    if(half!==emdr.lastHalf){
+      emdr.lastHalf=half; emdr.passes++;
+      document.getElementById('passN').textContent=emdr.passes;
+      const goingRight=Math.cos(phase)>0;
+      if(tapOn) cue.textContent=goingRight?'right':'left';
+      if(emdr.pan) emdr.pan.pan.setValueAtTime(goingRight?0.9:-0.9, emdr.audio.currentTime);
+      if(emdr.gain){ // soft pulse at each end
+        const t2=emdr.audio.currentTime;
+        emdr.gain.gain.cancelScheduledValues(t2);
+        emdr.gain.gain.setValueAtTime(0.08,t2);
+        emdr.gain.gain.exponentialRampToValueAtTime(0.0001,t2+period*0.42);
+      }
+      if(emdr.passes>=emdr.target){ finishSet(); return; }
+    }
+    emdr.raf=requestAnimationFrame(frame);
+  }
+  emdr.raf=requestAnimationFrame(frame);
+}
+function finishSet(){
+  emdr.running=false; if(emdr.raf)cancelAnimationFrame(emdr.raf);
+  if(emdr.gain){try{emdr.gain.gain.setValueAtTime(0.0001,emdr.audio.currentTime);}catch(e){}}
+  document.getElementById('emdrStatus').textContent='Set complete. Take a slow breath. What do you notice now?';
+  document.getElementById('emdrDone').style.display='flex';
+  document.getElementById('emdrStop').style.display='none';
+}
+document.getElementById('anotherSet').addEventListener('click',()=>{emdr.set++; runEmdr();});
+document.getElementById('stopSet').addEventListener('click',finishSet);
+
+/* ---------------- ritual ---------------- */
+let ritRun=false;
+function runRitual(){
+  if(ritRun)return; ritRun=true;
+  const orb=document.getElementById('ritOrb');
+  const plexus=document.getElementById('plexus');
+  const heart=document.getElementById('heart');
+  const line=document.getElementById('ritLine');
+  const belief=state.new_belief||state.ta_chosen||'this new truth';
+  document.getElementById('ritActions').style.display='none';
+  const steps=[
+    [0,   ()=>{ line.textContent='See it as light — a sphere of everything you now choose to be.'; }],
+    [3200,()=>{ line.textContent='“'+belief+'”'; orb.style.boxShadow='0 0 70px 12px var(--accent),0 0 140px 22px var(--accent-2)'; }],
+    [7000,()=>{ line.textContent='Let it descend — into the solar plexus, your centre of power.';
+                orb.style.top='52%'; plexus.style.opacity='.9'; plexus.style.animation='ringpulse 2s ease-in-out infinite'; }],
+    [11500,()=>{ line.textContent='Feel it settle. This truth belongs to you now.'; orb.style.width='58px'; orb.style.height='58px'; }],
+    [14500,()=>{ line.textContent='Now let it rise — and open in the heart.';
+                 orb.style.top='38%'; plexus.style.opacity='0'; heart.style.opacity='.9'; heart.style.animation='ringpulse 2s ease-in-out infinite'; }],
+    [18500,()=>{ line.textContent='Let it radiate through every cell. You are this, now.';
+                 orb.style.width='90px'; orb.style.height='90px'; orb.style.opacity='.9'; }],
+    [22000,()=>{ line.textContent='Breathe it in fully. It’s done.'; orb.style.opacity='0.15'; }],
+    [24500,()=>{ const a=document.getElementById('ritActions');
+                 a.innerHTML='<button class="btn solid" data-next>Speak it as identity</button>';
+                 a.style.display='flex'; a.style.justifyContent='center'; ritRun=false; }]
+  ];
+  steps.forEach(([d,fn])=>setTimeout(fn,d));
+}
+document.getElementById('ritBegin').addEventListener('click',runRitual);
+
+/* ---------------- onEnter hooks ---------------- */
+const onEnter={
+  baseline:fillEchoes,
+  k1:fillEchoes,
+  turnarounds:()=>{ if(!document.getElementById('ta_opposite')) buildTurnarounds(); },
+  allowing:()=>{ buildAllow(); startPacer(); },
+  'emdr-setup':stopPacer,
+  'emdr-run':()=>{ startEmdrAudio(); emdr.set=1; runEmdr(); },
+  'emdr-after':()=>{ emdr.running=false; if(emdr.raf)cancelAnimationFrame(emdr.raf); stopEmdrAudio(); },
+  'install-belief':()=>{
+    const el=document.getElementById('new_belief');
+    if(!el.value.trim()){
+      const seed=state.mem_rewrite && state.ta_chosen
+        ? state.ta_chosen
+        : (state.ta_chosen||state.ta_self||'');
+      el.value=seed;
+    }
+  },
+  ritual:()=>{ // reset scene each entry
+    ritRun=false;
+    const orb=document.getElementById('ritOrb');
+    orb.style.top='8%'; orb.style.width='70px'; orb.style.height='70px'; orb.style.opacity='1';
+    document.getElementById('plexus').style.opacity='0';
+    document.getElementById('heart').style.opacity='0';
+    document.getElementById('ritLine').textContent='Sit tall. Soften your breath. When you’re ready, begin.';
+    const a=document.getElementById('ritActions');
+    a.innerHTML='<button class="btn solid" id="ritBegin2">Begin</button>'; a.style.display='flex';
+    document.getElementById('ritBegin2').addEventListener('click',runRitual);
+  },
+  integration:()=>{
+    const el=document.getElementById('i_am');
+    if(!el.value.trim()){
+      let b=state.new_belief||state.ta_chosen||'';
+      // nudge toward "I am" phrasing
+      let s=b.replace(/^i\s+/i,'').trim();
+      el.value = /^i\s*am/i.test(b)? b : (s? 'I am '+s.charAt(0).toLowerCase()+s.slice(1): 'I am ');
+    }
+  },
+  report:()=>{ composeReport(); renderHistory(); }
+};
+
+/* ---------------- report ---------------- */
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function composeReport(){
+  save();
+  state.date=new Date();
+  const d=state.date.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const delta=state.base-state.after;
+  const tas=[
+    ['To the opposite',state.ta_opposite],
+    ['To yourself',state.ta_self],
+    ['To the other',state.ta_other]
+  ].filter(t=>t[1]);
+  const chosen=(state.ta_chosen||'').trim();
+  const taListHtml = tas.map(([tag,txt])=>{
+    const isChosen = chosen && txt.trim().toLowerCase()===chosen.toLowerCase();
+    return `<li class="${isChosen?'chosen':''}">${esc(txt)}</li>`;
+  }).join('') + (chosen && !tas.some(t=>t[1].trim().toLowerCase()===chosen.toLowerCase())
+      ? `<li class="chosen">${esc(chosen)}</li>` : '');
+
+  const block=(k,v,cls='')=> v? `<div class="rep-block"><div class="rep-k">${k}</div><div class="rep-v ${cls}">${esc(v)}</div></div>`:'';
+
+  document.getElementById('reportBody').innerHTML=`
+    <div class="rep-crest">
+      <div class="orb-wrap"><div class="orb"></div><div class="orb-ring"></div></div>
+    </div>
+    <div class="rep-title">The Turning</div>
+    <div class="rep-sub">Belief change report · ${esc(d)}</div>
+
+    <div class="rep-shift">
+      <div><div class="shift-n">${state.base}</div><div class="shift-lab">Before</div></div>
+      <div class="shift-arrow">→</div>
+      <div><div class="shift-n after">${state.after}</div><div class="shift-lab">After</div></div>
+    </div>
+
+    <div class="rep-block"><div class="rep-k">The belief you met</div><div class="rep-v">“${esc(state.belief)}”</div></div>
+
+    <div class="rep-block">
+      <div class="rep-k">Inquiry</div>
+      <div class="rep-v body">Is it true? <b style="color:var(--ink)">${esc(state.k1_true||'—')}</b> · Can you absolutely know it? <b style="color:var(--ink)">${esc(state.k2_true||'—')}</b></div>
+    </div>
+    ${block('When I believe it, I…',state.k3_reaction,'body')}
+    ${block('Without it, I would be…',state.k4_without,'body')}
+
+    ${taListHtml? `<div class="rep-block"><div class="rep-k">Turnarounds</div><ul class="ta-list">${taListHtml}</ul></div>`:''}
+
+    ${block('The earliest root',state.mem_first,'body')}
+    ${block('What it protected',state.mem_lesson,'body')}
+    ${block('What that moment needed',state.mem_needs,'body')}
+    ${block('The rewrite',state.mem_rewrite,'body')}
+
+    <div class="rep-block"><div class="rep-k">The belief I choose</div><div class="rep-vow">“${esc(state.new_belief||chosen)}”</div></div>
+    ${state.i_am? `<div class="rep-block" style="border:none"><div class="rep-k">Sealed as identity</div><div class="rep-vow">${esc(state.i_am)}</div></div>`:''}
+  `;
+}
+
+function reportText(){
+  const d=state.date? state.date.toLocaleDateString():new Date().toLocaleDateString();
+  const L=[];
+  L.push('THE TURNING — Belief Change Report');
+  L.push(d); L.push('');
+  L.push('WEIGHT  '+state.base+' → '+state.after+'  ('+(state.base-state.after>=0?'−':'+')+Math.abs(state.base-state.after)+')');
+  L.push('');
+  L.push('THE BELIEF I MET');
+  L.push('“'+state.belief+'”'); L.push('');
+  L.push('INQUIRY');
+  L.push('· Is it true? '+(state.k1_true||'—'));
+  L.push('· Can you absolutely know it? '+(state.k2_true||'—'));
+  if(state.k3_reaction){L.push('· When I believe it, I: '+state.k3_reaction);}
+  if(state.k4_without){L.push('· Without it, I would be: '+state.k4_without);}
+  L.push('');
+  L.push('TURNAROUNDS');
+  if(state.ta_opposite)L.push('· To the opposite: '+state.ta_opposite);
+  if(state.ta_self)L.push('· To yourself: '+state.ta_self);
+  if(state.ta_other)L.push('· To the other: '+state.ta_other);
+  if(state.ta_chosen)L.push('· Most alive: '+state.ta_chosen);
+  L.push('');
+  if(state.mem_first||state.mem_lesson||state.mem_needs||state.mem_rewrite){
+    L.push('THE ROOT');
+    if(state.mem_first)L.push('· Earliest memory: '+state.mem_first);
+    if(state.mem_lesson)L.push('· What it protected: '+state.mem_lesson);
+    if(state.mem_needs)L.push('· What it needed: '+state.mem_needs);
+    if(state.mem_rewrite)L.push('· The rewrite: '+state.mem_rewrite);
+    L.push('');
+  }
+  L.push('THE BELIEF I CHOOSE');
+  L.push('“'+(state.new_belief||state.ta_chosen)+'”');
+  if(state.i_am){L.push(''); L.push('SEALED AS: '+state.i_am);}
+  return L.join('\n');
+}
+
+function reportHTML(){
+  const d=state.date? state.date.toLocaleDateString(undefined,{weekday:'long',year:'numeric',month:'long',day:'numeric'}):new Date().toLocaleDateString();
+  const row=(k,v)=>v?`<tr><td class="k">${esc(k)}</td><td class="v">${esc(v)}</td></tr>`:'';
+  return `<!DOCTYPE html><html><head><meta charset="utf-8"><title>The Turning — ${esc(d)}</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Space+Grotesk:wght@400;500&display=swap');
+body{margin:0;background:#0a0c1a;color:#f2eee6;font-family:'Space Grotesk',sans-serif;padding:60px 20px;line-height:1.6}
+.wrap{max-width:640px;margin:0 auto}
+h1{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:3rem;margin:0;text-align:center}
+.sub{text-align:center;letter-spacing:.2em;text-transform:uppercase;font-size:11px;color:#7a7590;margin:8px 0 40px}
+.shift{text-align:center;font-family:'Cormorant Garamond',serif;font-size:3rem;margin:20px 0 40px}
+.shift b{color:#F0CE86}
+.k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c9a24f;padding:22px 0 6px;vertical-align:top;white-space:nowrap;padding-right:24px}
+.v{font-family:'Cormorant Garamond',serif;font-size:1.25rem;padding:22px 0 6px;border-top:1px solid rgba(255,255,255,.08)}
+table{width:100%;border-collapse:collapse}
+.vow{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.9rem;color:#F0CE86;text-align:center;margin:30px 0}
+.belief{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;text-align:center;margin:0 0 10px}
+</style></head><body><div class="wrap">
+<h1>The Turning</h1><div class="sub">Belief change report · ${esc(d)}</div>
+<div class="shift">${state.base} &rarr; <b>${state.after}</b></div>
+<p class="belief">“${esc(state.belief)}”</p>
+<table>
+${row('Is it true?',state.k1_true)}
+${row('Absolutely?',state.k2_true)}
+${row('When I believe it',state.k3_reaction)}
+${row('Without it',state.k4_without)}
+${row('To the opposite',state.ta_opposite)}
+${row('To yourself',state.ta_self)}
+${row('To the other',state.ta_other)}
+${row('Earliest root',state.mem_first)}
+${row('What it protected',state.mem_lesson)}
+${row('What it needed',state.mem_needs)}
+${row('The rewrite',state.mem_rewrite)}
+</table>
+<div class="vow">“${esc(state.new_belief||state.ta_chosen)}”</div>
+${state.i_am?`<p class="belief" style="color:#F0CE86">${esc(state.i_am)}</p>`:''}
+</div></body></html>`;
+}
+
+/* ---------------- actions ---------------- */
+document.getElementById('dlBtn').addEventListener('click',()=>{
+  const blob=new Blob([reportHTML()],{type:'text/html'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='the-turning-'+new Date().toISOString().slice(0,10)+'.html';
+  document.body.appendChild(a); a.click(); a.remove();
+  toast('Report downloaded — open it and print to PDF to keep or send');
+});
+document.getElementById('copyBtn').addEventListener('click',async()=>{
+  try{ await navigator.clipboard.writeText(reportText()); toast('Copied to clipboard'); }
+  catch(e){ toast('Copy unavailable — try Download instead'); }
+});
+document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('emailBtn').addEventListener('click',()=>{
+  const subj='My Belief Change Report — The Turning';
+  const body=reportText();
+  const href='mailto:?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+  if(body.length>1600){ toast('Long report — email opens with a summary; use Download for the full version'); }
+  window.location.href=href;
+});
+
+/* ---------------- history (localStorage, guarded) ---------------- */
+const HKEY='the_turning_sessions';
+function loadHist(){ try{return JSON.parse(localStorage.getItem(HKEY))||[];}catch(e){return [];} }
+function saveHist(arr){ try{localStorage.setItem(HKEY,JSON.stringify(arr));return true;}catch(e){return false;} }
+document.getElementById('saveBtn').addEventListener('click',()=>{
+  const arr=loadHist();
+  arr.unshift({
+    id:Date.now(), date:new Date().toISOString(),
+    belief:state.belief, base:state.base, after:state.after,
+    newBelief:state.new_belief||state.ta_chosen
+  });
+  if(saveHist(arr.slice(0,50))){ toast('Saved to this device'); renderHistory(); }
+  else toast('Storage blocked here — your report still downloads fine');
+});
+function renderHistory(){
+  const arr=loadHist();
+  const list=document.getElementById('histList');
+  const count=document.getElementById('histCount');
+  count.textContent = arr.length? arr.length+(arr.length===1?' turning':' turnings') : '';
+  if(!arr.length){ list.innerHTML='<div class="hist-empty">No saved turnings yet. Save this one to begin a record.</div>';
+    document.getElementById('spark').innerHTML=''; return; }
+  list.innerHTML=arr.map(s=>{
+    const dt=new Date(s.date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+    const dl=s.base-s.after; const cls=dl>0?'down':dl<0?'up':'flat';
+    const sign=dl>0?'−':dl<0?'+':'±';
+    return `<div class="hist-item"><div class="hist-main">
+      <div class="hist-belief">“${esc(s.belief)}”</div>
+      <div class="hist-date">${dt} · became “${esc(s.newBelief||'—')}”</div></div>
+      <div class="hist-delta ${cls}">${s.base}→${s.after} ${sign}${Math.abs(dl)}</div>
+      <button class="hist-x" data-del="${s.id}" title="Remove">×</button></div>`;
+  }).join('');
+  list.querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>{
+    const kept=loadHist().filter(x=>x.id!=b.dataset.del); saveHist(kept); renderHistory();
+  }));
+  drawSpark(arr.slice().reverse());
+}
+function drawSpark(arr){
+  const host=document.getElementById('spark');
+  if(arr.length<2){host.innerHTML='';return;}
+  const w=600,h=54,pad=6;
+  const xs=(i)=>pad+i*((w-2*pad)/(arr.length-1));
+  const ys=(v)=>h-pad-(v/10)*(h-2*pad);
+  const line=(key,color,op)=>arr.map((s,i)=>`${i?'L':'M'}${xs(i).toFixed(1)} ${ys(s[key]).toFixed(1)}`).join(' ');
+  const dots=arr.map((s,i)=>`<circle cx="${xs(i).toFixed(1)}" cy="${ys(s.after).toFixed(1)}" r="2.5" fill="var(--accent)"/>`).join('');
+  host.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:54px;overflow:visible">
+    <path d="${line('base')}" fill="none" stroke="var(--ink-faint)" stroke-width="1.5" opacity=".5"/>
+    <path d="${line('after')}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    ${dots}
+  </svg>
+  <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px">
+  <span style="color:var(--ink-faint)">— before</span><span style="color:var(--accent)">— after</span></div>`;
+}
+
+/* ---------------- restart ---------------- */
+function restart(){
+  for(const k in state){ if(typeof state[k]==='string')state[k]=''; }
+  state.base=5;state.after=5;state.mem=5;state.date=null;
+  document.querySelectorAll('textarea,input[type=text]').forEach(e=>e.value='');
+  document.querySelectorAll('input[type=range]').forEach(r=>{r.value=5;r.dispatchEvent(new Event('input'));});
+  document.querySelectorAll('.choice').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('taBox').innerHTML='';
+  stopPacer(); emdr.running=false; if(emdr.raf)cancelAnimationFrame(emdr.raf); stopEmdrAudio();
+  show(0);
+}
+document.getElementById('restartBtn').addEventListener('click',restart);
+document.getElementById('restartFoot').addEventListener('click',restart);
+
+/* reduce motion toggle */
+let quiet=false;
+document.getElementById('quietFoot').addEventListener('click',(e)=>{
+  quiet=!quiet; document.body.style.setProperty('--motion',quiet?'0':'1');
+  document.querySelectorAll('.aurora,.grain').forEach(x=>x.style.animationPlayState=quiet?'paused':'running');
+  document.querySelectorAll('.orb,.pacer-core,.orb-ring').forEach(x=>x.style.animationPlayState=quiet?'paused':'running');
+  e.target.textContent=quiet?'Restore motion':'Reduce motion';
+});
+
+/* ---------------- toast ---------------- */
+let toastT=null;
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),3400);
+}
+
+/* ---------------- keyboard ---------------- */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){
+    const cur=screens[FLOW[idx]]; const nx=cur.querySelector('[data-next]');
+    if(nx){nx.click();}
+  }
+});
+
+/* init */
+setAccent(0); updateRail(0);
+})();
+</script>
+</body>
+</html>
