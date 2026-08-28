@@ -153,3 +153,42 @@
 
 /* the two tracks stack flush — no doubled hairline between them */
 .sma-band .sma-track + .sma-track{border-top:0}
+
+/* --------------------------------------------------------------------------
+   Stats row, merged into the band so proof and audience read as one block.
+   Previously a separate desktop-only section, so mobile never saw the numbers.
+   -------------------------------------------------------------------------- */
+.sma-band .sma-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  padding-bottom:34px;
+  margin-bottom:30px;
+  border-bottom:1px solid rgba(24,34,44,.13);
+}
+.sma-band .sma-stat{text-align:center}
+.sma-band .sma-stat i{
+  display:block;
+  font-style:normal;
+  font-size:clamp(24px,3vw,36px);
+  font-weight:700;
+  line-height:1.1;
+  letter-spacing:-.02em;
+  color:#18222c;
+}
+.sma-band .sma-stat em{
+  display:block;
+  font-style:normal;
+  font-size:13.5px;
+  font-weight:700;
+  line-height:1.4;
+  color:#55606b;
+  margin-top:7px;
+}
+/* the section's one crimson moment */
+.sma-band .sma-stat:nth-child(2) i{color:#93252a}
+
+@media (max-width:640px){
+  .sma-band .sma-stats{grid-template-columns:1fr;gap:22px;padding-bottom:26px;margin-bottom:24px}
+  .sma-band .sma-stat em{font-size:12.5px}
+}
