@@ -222,20 +222,3 @@
 .sma-video button:focus-visible .sma-play{transform:scale(1.07);background:#93252a}
 .sma-video button:focus-visible{outline:3px solid #93252a;outline-offset:-3px}
 
-/* --------------------------------------------------------------------------
-   EXPERIMENT: headings in Oswald, body copy stays Poppins.
-   Oswald is condensed, so it needs a little tracking to stop headings
-   looking cramped, and it reads heavier — hence 500/600 rather than 700.
-   Only home/index.html loads the Oswald webfont; every other page falls
-   back to Poppins automatically, so this is safe to leave in while testing.
-   -------------------------------------------------------------------------- */
-/* Scoped to .sma-title — headings of 10 words or fewer. This site marks up
-   body copy and testimonials as h5/h6, and Oswald is a display face that
-   gets tiring at paragraph length, so a blanket h1-h6 rule was wrong. */
-.sma-title,
-.sma-band .sma-stat i{
-  font-family:'Oswald','Poppins',Arial,sans-serif !important;
-  letter-spacing:.005em;
-}
-h1.sma-title, h2.sma-title, .sma-band .sma-stat i{ font-weight:600 !important; }
-h3.sma-title, h4.sma-title, h5.sma-title, h6.sma-title{ font-weight:500 !important; }
