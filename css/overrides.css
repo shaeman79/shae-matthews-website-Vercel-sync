@@ -255,7 +255,7 @@
    equal durations on unequal lanes = unequal speed. Measured at 1440px:
    top lane 8410px, bottom 21256px. Durations set to give both ~74 px/s. */
 .sma-band .sma-lane{animation-duration:68s}
-.sma-band .sma-lane--rev{animation-duration:114s}
+.sma-band .sma-lane--rev{animation-duration:126s}
 
 /* "Join the Evolution" kicker above the hero eyebrow */
 .sma-kicker{
@@ -294,39 +294,15 @@
 }
 @media (max-width:760px){ .sma-band .sma-lane b{font-size:15px} }
 
-/* --------------------------------------------------------------------------
-   Topics grid. Replaces the second ticker: 39 items at 114s per cycle meant
-   most were never seen. Grouped and static, the whole territory reads at a
-   glance and it works on mobile without motion.
-   -------------------------------------------------------------------------- */
-.sma-band .sma-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:34px 44px;
-  margin-top:4px;
-  text-align:left;
-}
-.sma-band .sma-group h4{
-  margin:0 0 12px;
-  padding-bottom:10px;
-  border-bottom:1px solid rgba(147,37,42,.28);
-  font-family:'Poppins',Arial,sans-serif;
-  font-size:15px;font-weight:700;
-  letter-spacing:.01em;
+
+/* Group markers inside the topics crawl: each theme leads, its topics follow. */
+.sma-band .sma-lane b.sma-head{
   color:#93252a;
+  font-weight:700;
+  padding-left:44px;
 }
-.sma-band .sma-group ul{list-style:none;margin:0;padding:0}
-.sma-band .sma-group li{
-  font-size:15px;
-  line-height:1.85;
-  color:#46515c;
-  position:relative;
-  padding-left:14px;
+.sma-band .sma-lane b.sma-head::before{
+  width:2px;height:19px;border-radius:0;
+  background:#93252a;opacity:.85;
+  left:18px;
 }
-.sma-band .sma-group li::before{
-  content:'';position:absolute;left:0;top:.78em;
-  width:4px;height:4px;border-radius:50%;
-  background:#93252a;opacity:.45;
-}
-@media (max-width:900px){ .sma-band .sma-grid{grid-template-columns:repeat(2,1fr);gap:28px 32px} }
-@media (max-width:560px){ .sma-band .sma-grid{grid-template-columns:1fr;gap:24px} }
