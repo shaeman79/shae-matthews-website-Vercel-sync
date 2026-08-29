@@ -222,3 +222,44 @@
 .sma-video button:focus-visible .sma-play{transform:scale(1.07);background:#93252a}
 .sma-video button:focus-visible{outline:3px solid #93252a;outline-offset:-3px}
 
+
+/* --------------------------------------------------------------------------
+   Ticker treatment: centred captions, tighter rows, news-crawl feel.
+   -------------------------------------------------------------------------- */
+.sma-band .sma-cap{
+  text-align:center;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+/* rules either side of the caption, like a broadcast strap */
+.sma-band .sma-cap::before,
+.sma-band .sma-cap::after{
+  content:'';height:1px;width:clamp(20px,7vw,90px);
+  background:rgba(24,34,44,.22);
+}
+.sma-band .sma-track{
+  padding:16px 0;
+  background:#f7f6f5;                 /* the crawl sits on its own strap */
+}
+.sma-band .sma-lane b{
+  font-size:15px;
+  color:#3f4a55;
+  padding:0 26px;
+}
+/* dot separators instead of hairlines — reads more like a news crawl */
+.sma-band .sma-lane b::before{
+  width:4px;height:4px;border-radius:50%;
+  background:#93252a;opacity:.55;
+  top:50%;
+}
+.sma-band .sma-lane{animation-duration:38s}
+.sma-band .sma-lane--rev{animation-duration:46s}
+
+/* "Join the Evolution" kicker above the hero eyebrow */
+.sma-kicker{
+  margin:0 0 6px;
+  font-family:'Poppins',Arial,sans-serif;
+  font-size:12px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;
+  color:#93252a;
+}
+@media (max-width:767px){ .sma-kicker{text-align:center} }
