@@ -254,7 +254,7 @@
 /* Matched pace. The animation travels 1/3 of each lane's width per cycle, so
    equal durations on unequal lanes = unequal speed. Measured at 1440px:
    top lane 8410px, bottom 21256px. Durations set to give both ~74 px/s. */
-.sma-band .sma-lane{animation-duration:46s}
+.sma-band .sma-lane{animation-duration:68s}
 .sma-band .sma-lane--rev{animation-duration:86s}
 
 /* "Join the Evolution" kicker above the hero eyebrow */
