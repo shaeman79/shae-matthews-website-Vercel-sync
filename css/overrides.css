@@ -162,8 +162,10 @@
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:24px;
-  padding-bottom:34px;
-  margin-bottom:30px;
+  /* now sits BETWEEN the two crawls, so it needs air and a rule on both sides */
+  padding:34px 0;
+  margin:6px 0 30px;
+  border-top:1px solid rgba(24,34,44,.13);
   border-bottom:1px solid rgba(24,34,44,.13);
 }
 .sma-band .sma-stat{text-align:center}
@@ -255,7 +257,7 @@
    equal durations on unequal lanes = unequal speed. Measured at 1440px:
    top lane 8410px, bottom 21256px. Durations set to give both ~74 px/s. */
 .sma-band .sma-lane{animation-duration:68s}
-.sma-band .sma-lane--rev{animation-duration:126s}
+.sma-band .sma-lane--rev{animation-duration:119s}
 
 /* "Join the Evolution" kicker above the hero eyebrow */
 .sma-kicker{
@@ -276,7 +278,7 @@
   margin:0 0 16px;
   line-height:1.25;
 }
-.sma-band h3.sma-cap--second{margin:30px 0 16px}
+.sma-band h3.sma-cap--second{margin:4px 0 16px}
 .sma-band h3.sma-cap::before,
 .sma-band h3.sma-cap::after{width:clamp(24px,9vw,140px)}
 
