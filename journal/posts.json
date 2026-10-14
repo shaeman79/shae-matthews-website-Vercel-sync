@@ -1,0 +1,62 @@
+[
+  {
+    "id": "LM-B001",
+    "slug": "attention",
+    "title": "Get your attention back",
+    "topic": "Presence",
+    "format": "Field dossier",
+    "excerpt": "Read, choose a small experiment, keep a field sheet and review what happened.",
+    "image": "images/movement.jpg",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/attention"
+  },
+  {
+    "id": "LM-B002",
+    "slug": "a-life-that-feels-like-yours",
+    "title": "A life that feels like yours.",
+    "topic": "Direction",
+    "format": "Essay",
+    "excerpt": "Presence, purpose and relationships belong in the same conversation.",
+    "image": "images/founder.png",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/a-life-that-feels-like-yours"
+  },
+  {
+    "id": "LM-B003",
+    "slug": "attention-before-the-day",
+    "title": "Before the day borrows your attention.",
+    "topic": "Presence",
+    "format": "Practice note",
+    "excerpt": "A small invitation to choose how you enter the morning.",
+    "image": "images/presence.webp",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/attention-before-the-day"
+  },
+  {
+    "id": "LM-B004",
+    "slug": "a-conversation-with-room",
+    "title": "A conversation with room for both of you.",
+    "topic": "Connection",
+    "format": "Essay",
+    "excerpt": "Curiosity, boundaries and the possibility of a different answer.",
+    "image": "images/connection.webp",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/a-conversation-with-room"
+  },
+  {
+    "id": "LM-B005",
+    "slug": "attention-in-touch",
+    "title": "Attention is part of the touch.",
+    "topic": "Intimacy",
+    "format": "Practice note",
+    "excerpt": "Communication and freely given consent come before technique.",
+    "image": "images/intimacy.webp",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/attention-in-touch"
+  }
+]
