@@ -57,7 +57,11 @@ async function pushToCRM(token, { name, email, phone, source }) {
   });
   const text = await r.text();
   if (!r.ok) throw new Error(`CRM Leads failed: ${r.status} ${text}`);
-  return JSON.parse(text);
+  const result = JSON.parse(text);
+  if (!result.data?.some(item => item.status === "success" && item.details?.id)) {
+    throw new Error("CRM did not confirm lead creation");
+  }
+  return result;
 }
 
 async function pushToCampaigns(token, { name, email }) {
@@ -85,10 +89,10 @@ module.exports = async (req, res) => {
   let body = req.body;
   if (typeof body === "string") { try { body = JSON.parse(body); } catch { body = {}; } }
   body = body || {};
-  const name = (body.name || "").trim();
-  const email = (body.email || "").trim();
-  const phone = (body.phone || "").trim();
-  const source = (body.source || "Homepage Popup").trim();
+  const name = typeof body.name === "string" ? body.name.trim() : "";
+  const email = typeof body.email === "string" ? body.email.trim() : "";
+  const phone = typeof body.phone === "string" ? body.phone.trim() : "";
+  const source = typeof body.source === "string" ? body.source.trim() : "Homepage Popup";
 
   if (!name || !email || !phone) { res.status(400).json({ ok: false, error: "Missing required fields" }); return; }
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { res.status(400).json({ ok: false, error: "Invalid email" }); return; }
@@ -96,15 +100,18 @@ module.exports = async (req, res) => {
   let zohoError = null;
   try {
     const token = await getAccessToken();
-    const [crm, camp] = await Promise.allSettled([
-      pushToCRM(token, { name, email, phone, source }),
-      pushToCampaigns(token, { name, email }),
-    ]);
-    if (crm.status === "rejected") { zohoError = "CRM: " + crm.reason.message; console.error("[lead] CRM:", crm.reason); }
-    if (camp.status === "rejected") { console.error("[lead] Campaigns:", camp.reason); }
+    await pushToCRM(token, { name, email, phone, source });
+    // A booking enquiry is not newsletter consent. Existing forms do not opt in.
+    if (body.marketingConsent === true) {
+      try { await pushToCampaigns(token, { name, email }); }
+      catch { console.error("[lead] Campaigns subscription failed"); }
+    }
   } catch (e) {
-    zohoError = e.message; console.error("[lead] token:", e);
+    zohoError = true; console.error("[lead] CRM capture failed");
   }
-  // Always succeed for the user; lead errors are logged for review.
+  if (zohoError) {
+    res.status(502).json({ ok: false, error: "We could not save your enquiry. Please try again or email shae@shaematthews.com." });
+    return;
+  }
   res.status(200).json({ ok: true, redirect: REDIRECT_URL });
 };
