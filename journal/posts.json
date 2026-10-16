@@ -1,5 +1,17 @@
 [
   {
+    "id": "LM-B006",
+    "slug": "a-worthwhile-day",
+    "title": "What would make tomorrow a worthwhile day?",
+    "topic": "Direction",
+    "format": "Essay & experiment",
+    "excerpt": "Choose a direction, try one feasible action, and review what actually happened.",
+    "image": "images/presence.webp",
+    "author": "Liberated Man editorial",
+    "edition": "Early edition",
+    "url": "https://shaematthews.com/journal/a-worthwhile-day"
+  },
+  {
     "id": "LM-B001",
     "slug": "attention",
     "title": "Get your attention back",
